@@ -5,19 +5,19 @@ import csv
 
 
 
-def get_html(url):
+def get_html(url): # Получаем html
     r = requests.get(url)
     if r.ok:
         return r.text
     print(r.status_code)
 
 
-def write_csv(data):
+def write_csv(data): # Пишем спарсенные данные в  csv файл
     with open('cmc.csv', 'a') as f:
         writer = csv.writer(f)
         writer.writerow((data['name'], data['url'], data['price']))
 
-def get_page_data(html):
+def get_page_data(html): # Парсим данные
     soup = BeautifulSoup(html, 'lxml')
 
     trs = soup.find('tbody').find_all('tr', class_='cmc-table-row')
